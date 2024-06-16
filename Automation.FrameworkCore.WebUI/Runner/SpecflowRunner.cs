@@ -1,5 +1,6 @@
 ﻿using Automation.FrameworkCore.WebUI.DIConteiner;
 using Automation.FrameworkCore.WebUI.Reports;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Automation.FrameworkCore.WebUI.Runner
         public static void BeforeTestRun()
         {
             _serviceProvider = ContainerConfig.ConfiureServices();
-            GlobalProperties globalProperties = new GlobalProperties();
+            GlobalProperties globalProperties = _serviceProvider.GetRequiredService<GlobalProperties>();
             globalProperties.Configure();
         }
     }

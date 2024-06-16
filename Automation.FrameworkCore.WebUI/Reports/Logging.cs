@@ -27,6 +27,9 @@ namespace Automation.FrameworkCore.WebUI.Reports
         {
             switch (level.ToLower())
             {
+                case "error":
+                    _loggingLevelSwitch.MinimumLevel = Serilog.Events.LogEventLevel.Error;
+                    break;
                 case "fatal":
                     _loggingLevelSwitch.MinimumLevel = Serilog.Events.LogEventLevel.Fatal;
                     break;
@@ -45,6 +48,10 @@ namespace Automation.FrameworkCore.WebUI.Reports
             }
         }
 
+        public void Error(string message)
+        {
+            Log.Error(message);
+        }
         public void Debug(string message)
         {
             Log.Debug(message);

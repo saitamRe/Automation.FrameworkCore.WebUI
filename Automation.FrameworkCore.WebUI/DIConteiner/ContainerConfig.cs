@@ -18,6 +18,7 @@ namespace Automation.FrameworkCore.WebUI.DIConteiner
             IServiceCollection services = new ServiceCollection();
             services.AddSingleton<IDefaultVariables, DefaultVariables>();
             services.AddSingleton<ILogging, Logging>();
+            services.AddSingleton<IGlobalProperties, GlobalProperties>();
             return services.BuildServiceProvider();
         }
     }

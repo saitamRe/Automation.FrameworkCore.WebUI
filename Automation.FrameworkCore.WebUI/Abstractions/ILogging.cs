@@ -9,6 +9,7 @@ namespace Automation.FrameworkCore.WebUI.Abstractions
     public interface ILogging
     {
         void LogLevel(string level);
+        void Error(string message);
         void Debug(string message);
         void Fatal(string message);
         void Warning(string message);

@@ -13,10 +13,13 @@ namespace Automation.DemoUI.Tests
         public void Setup()
         {
             IServiceProvider serviceProvider = ContainerConfig.ConfiureServices();
-            ILogging logging = serviceProvider.GetRequiredService<ILogging>();
-            logging.Fatal("Oh holly shit!");
-            GlobalProperties globalProperties = new GlobalProperties();
+            IGlobalProperties globalProperties = serviceProvider.GetRequiredService<IGlobalProperties>();
             globalProperties.Configure();
+
+            ILogging logging = serviceProvider.GetRequiredService<ILogging>();
+
+            logging.Fatal("Oh holly shit!");
+            //GlobalProperties globalProperties = new GlobalProperties();
         }
 
         [Test]

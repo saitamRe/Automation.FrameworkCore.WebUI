@@ -26,10 +26,32 @@ namespace Automation.DemoUI.Tests.Params
             }
         }
 
-        public string GetFrameworkSettingsJson()
+        
+
+        public string GetFrameworkSettingsJson
         {
-            return Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)
+            get
+            {
+                return Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)
                 .FullName + "\\Resources\\frameworkSettings.json";
+            }
         }
+
+        public string DataSetLocation
+        {
+            get
+            {
+                return Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory + "../../../").FullName + "\\DataSet";
+            }
+        }
+
+        public string GridHubUrl
+        {
+            get
+            {
+                return "https://localhost:4444/";
+            }
+        }
+
     }
 }
