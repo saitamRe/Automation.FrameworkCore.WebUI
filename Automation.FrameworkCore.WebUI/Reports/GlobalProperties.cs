@@ -34,7 +34,6 @@ namespace Automation.FrameworkCore.WebUI.Reports
             try
             {
                 builder = new ConfigurationBuilder().AddJsonFile(_defaultVariables.GetFrameworkSettingsJson).Build();
-                Console.WriteLine(builder["BrowserType"]);
             }
             catch (Exception e)
             {

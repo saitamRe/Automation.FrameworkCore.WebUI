@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -10,25 +10,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
+    <PackageReference Include="nUnit" Version="3.13.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-    <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
-    <PackageReference Include="coverlet.collector" Version="6.0.0" />
-    <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
+    <PackageReference Include="NUnit.Analyzers" Version="4.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SpecFlow.NUnit" Version="3.9.40" />
+    <PackageReference Include="WebDriverManager" Version="2.17.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DataSet\" />
-    <Folder Include="TestCases\" />
     <Folder Include="Result\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Automation.DemoUI\Automation.DemoUI.csproj" />
     <ProjectReference Include="..\Automation.FrameworkCore.WebUI\Automation.FrameworkCore.WebUI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Resources\frameworkSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="specflow.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -1,0 +1,16 @@
+{
+  "specFlow": {
+    "bindingCulture": {
+      "name": "en-US"
+    },
+    "unitTestProvider": {
+      "name": "NUnit"
+    }
+  },
+
+  "stepAssemblies": [
+    {
+      "assembly": "Automation.DemoUI"
+    }
+  ]
+}
