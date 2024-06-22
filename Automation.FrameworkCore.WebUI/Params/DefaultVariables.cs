@@ -37,6 +37,15 @@ namespace Automation.DemoUI.Tests.Params
             }
         }
 
+        public string GetApplicationConfigJson
+        {
+            get
+            {
+                return Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)
+                    .FullName + "\\Resources\\applicationConfig.json";
+            }
+        }
+
         public string DataSetLocation
         {
             get

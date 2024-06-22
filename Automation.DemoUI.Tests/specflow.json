@@ -11,6 +11,9 @@
   "stepAssemblies": [
     {
       "assembly": "Automation.DemoUI"
+    },
+    {
+      "assembly": "Automation.FrameworkCore.WebUI"
     }
   ]
 }
