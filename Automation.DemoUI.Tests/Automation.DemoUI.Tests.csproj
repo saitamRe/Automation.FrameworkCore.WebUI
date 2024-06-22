@@ -19,7 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="SpecFlow.NUnit" Version="3.9.40" />
-    <PackageReference Include="WebDriverManager" Version="2.17.2" />
+    <PackageReference Include="WebDriverManager" Version="2.17.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +33,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Resources\applicationConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\frameworkSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

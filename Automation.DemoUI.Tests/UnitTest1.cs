@@ -12,7 +12,7 @@ namespace Automation.DemoUI.Tests
         [SetUp]
         public void Setup()
         {
-            IServiceProvider serviceProvider = ContainerConfig.ConfiureServices();
+            IServiceProvider serviceProvider = CoreContainerConfig.ConfiureServices();
             IGlobalProperties globalProperties = serviceProvider.GetRequiredService<IGlobalProperties>();
             globalProperties.Configure();
 

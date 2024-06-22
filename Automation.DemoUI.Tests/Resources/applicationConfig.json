@@ -2,6 +2,8 @@
   "url": "https://www.saucedemo.com/",
   "username": "standard_user",
   "password": "secret_sauce",
+  "invalid_username": "invalid_username",
+  "invalid_password": "invalid_pass",
   "guestrul": "https://www.makemytrip.com/"
 
 }

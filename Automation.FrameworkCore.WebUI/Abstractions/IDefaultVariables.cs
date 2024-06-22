@@ -13,5 +13,6 @@ namespace Automation.FrameworkCore.WebUI.Abstractions
         string GetFrameworkSettingsJson { get; }
         string DataSetLocation { get; }
         string GridHubUrl { get; }
+        string GetApplicationConfigJson { get; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Automation.DemoUI.Pages;
+using Automation.DemoUI.WebAbstraction;
 using TechTalk.SpecFlow;
 
 namespace Automation.DemoUI.Steps
@@ -7,16 +8,26 @@ namespace Automation.DemoUI.Steps
     public class LoginSteps
     {
         LoginPage _loginPage;
-        public LoginSteps()
+        IAtConfig _config;
+        
+        public LoginSteps(IAtConfig atConfig)
         {
-            _loginPage = new LoginPage();
+            _loginPage = new LoginPage(atConfig);
+            _config = atConfig;
         }
 
         [Given(@"Login with valid credentials")]
         public void GivenLoginWithValidCredentials()
         {
-            _loginPage.LoginWithValidCreds("standard_user", "secret_sauce");
+            _loginPage.LoginWithValidCreds(_config.GetConfiguration("username"), _config.GetConfiguration("password"));
         }
+
+        [Given(@"Login with invalid credentials")]
+        public void GivenLoginWithInvalidCredentials()
+        {
+            _loginPage.LoginWithValidCreds(_config.GetConfiguration("invalid_username"), _config.GetConfiguration("invalid_password"));
+        }
+
 
 
     }
