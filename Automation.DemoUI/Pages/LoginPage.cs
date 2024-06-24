@@ -13,11 +13,10 @@ namespace Automation.DemoUI.Pages
         IWebElement userName => _driver.FindElement(By.XPath("//input[@id='user-name']"));
         IWebElement passwd =>_driver.FindElement(By.XPath("//input[@id='password']"));
         IWebElement loginBtn => _driver.FindElement(By.XPath("//input[@id='login-button']"));
-        public LoginPage(IAtConfig atConfig)
+        public LoginPage(IAtConfig atConfig, IWebDriver driver)
         {
-            new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig(), "Latest");
             _config = atConfig;
-            _driver = new ChromeDriver();
+            _driver = driver;
             _driver.Manage().Window.Maximize();
         }
 

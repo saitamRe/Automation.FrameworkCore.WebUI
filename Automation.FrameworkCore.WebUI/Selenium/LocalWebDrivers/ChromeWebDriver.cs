@@ -3,8 +3,6 @@ using Automation.FrameworkCore.WebUI.Runner;
 using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using System;
-using System.Collections.Generic;
 using WebDriverManager.DriverConfigs.Impl;
 
 namespace Automation.FrameworkCore.WebUI.Selenium.LocalWebDrivers
