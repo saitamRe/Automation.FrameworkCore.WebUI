@@ -1,5 +1,6 @@
 ﻿using Automation.DemoUI.Pages;
 using Automation.DemoUI.WebAbstraction;
+using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 
 namespace Automation.DemoUI.Steps
@@ -10,9 +11,9 @@ namespace Automation.DemoUI.Steps
         LoginPage _loginPage;
         IAtConfig _config;
         
-        public LoginSteps(IAtConfig atConfig)
+        public LoginSteps(IAtConfig atConfig, IWebDriver driver)
         {
-            _loginPage = new LoginPage(atConfig);
+            _loginPage = new LoginPage(atConfig, driver);
             _config = atConfig;
         }
 
