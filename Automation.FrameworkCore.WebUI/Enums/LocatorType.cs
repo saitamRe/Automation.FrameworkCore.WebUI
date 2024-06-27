@@ -1,6 +1,4 @@
-﻿
-
-namespace Automation.FrameworkCore.WebUI.Abstractions
+﻿namespace Automation.FrameworkCore.WebUI.Enums
 {
     public enum LocatorType
     {
