@@ -1,5 +1,9 @@
-﻿using Automation.FrameworkCore.WebUI.Abstractions;
+﻿using Automation.DemoUI.WebAbstraction;
+using Automation.FrameworkCore.WebUI.Abstractions;
+using Automation.FrameworkCore.WebUI.DIConteiner;
+using Automation.FrameworkCore.WebUI.Runner;
 using BoDi;
+using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -14,14 +18,29 @@ namespace Automation.DemoUI.Hooks
     [Binding]
     public class SpecflowBase
     {
-        IChromeWebDriver _driver;
+        public IChromeWebDriver _driver;
+        
 
         public SpecflowBase(IChromeWebDriver iDriver)
         {
             _driver = iDriver;
+            
         }
 
-        [BeforeScenario(Order = 2)]
+        [BeforeTestRun(Order = 2)]
+        //order = 1 because we need to have assiciation between classes and interfaces before a test run
+        public static void BeforeTestRun(IObjectContainer container)
+        {
+
+            var serviceProvider = SpecflowRunner._serviceProvider;
+            container.RegisterInstanceAs(serviceProvider.GetRequiredService<IDefaultVariables>());
+            container.RegisterInstanceAs(serviceProvider.GetRequiredService<ILogging>());
+            container.RegisterInstanceAs(serviceProvider.GetRequiredService<IGlobalProperties>());
+            container.RegisterInstanceAs(serviceProvider.GetRequiredService<IChromeWebDriver>());
+            container.RegisterInstanceAs(serviceProvider.GetRequiredService<IAtConfig>());
+        }
+
+        [BeforeScenario(Order = 1)]
         public void BeforeScenario(IObjectContainer container)
         {
             IWebDriver driver = _driver.GetChromeWebDriver();

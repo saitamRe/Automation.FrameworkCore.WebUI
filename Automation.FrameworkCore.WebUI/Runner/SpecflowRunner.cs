@@ -1,6 +1,8 @@
-﻿using Automation.FrameworkCore.WebUI.DIConteiner;
+﻿using Automation.FrameworkCore.WebUI.Abstractions;
+using Automation.FrameworkCore.WebUI.DIConteiner;
 using Automation.FrameworkCore.WebUI.Reports;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using TechTalk.SpecFlow;
 
 namespace Automation.FrameworkCore.WebUI.Runner
@@ -10,12 +12,14 @@ namespace Automation.FrameworkCore.WebUI.Runner
     {
         public static IServiceProvider _serviceProvider;
 
-        [BeforeTestRun]
+        [BeforeTestRun(Order = 1)]
         public static void BeforeTestRun()
         {
-            _serviceProvider = CoreContainerConfig.ConfiureServices();
-            //GlobalProperties globalProperties = _serviceProvider.GetRequiredService<GlobalProperties>();
-            //globalProperties.Configure();
+            var services = new ServiceCollection();
+            CoreContainerConfig.ConfiureServices(services);
+            _serviceProvider = services.BuildServiceProvider();
+            IGlobalProperties globalProperties = _serviceProvider.GetRequiredService<IGlobalProperties>();
+            globalProperties.Configure();
         }
     }
 }

@@ -10,6 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataSet\**" />
+    <EmbeddedResource Remove="DataSet\**" />
+    <None Remove="DataSet\**" />
+    <SpecFlowFeatureFiles Remove="DataSet\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="DataSet\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="nUnit" Version="3.13.2" />
@@ -23,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataSet\" />
     <Folder Include="Result\" />
   </ItemGroup>
 
