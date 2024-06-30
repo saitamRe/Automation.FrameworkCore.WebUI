@@ -14,8 +14,7 @@ namespace Automation.DemoUI.Pages
     {
         private readonly IWebDriver _driver;
         private readonly IAtConfig _config;
-        private readonly string url;
-        ILogging _logger;
+        private readonly ILogging _logger;
 
         // Element locators
         private static readonly By UserNameLocator = By.XPath("//input[@id='user-name']");
