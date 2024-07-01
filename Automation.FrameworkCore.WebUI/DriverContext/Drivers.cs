@@ -8,17 +8,20 @@ using System.Threading.Tasks;
 
 namespace Automation.FrameworkCore.WebUI.DriverContext
 {
-    public class Drivers
+    //It is just wrapper around webdriver. It will be more helpfull when we will need to add different browsers support
+    public class Drivers :IDrivers
     {
         IChromeWebDriver _iChromeDriver;
-        IWebDriver _webDriver;
+        IWebDriver? _webDriver;
         IGlobalProperties _globalProperties;
+        ILogging _logging;
 
 
-        public Drivers(IChromeWebDriver chromeWebDriver, IGlobalProperties globalProperties)
+        public Drivers(IChromeWebDriver chromeWebDriver, IGlobalProperties globalProperties, ILogging logging)
         {
             _iChromeDriver = chromeWebDriver;
             _globalProperties = globalProperties;
+            _logging = logging;
         }
 
         public IWebDriver GetWebDriver()
@@ -47,5 +50,38 @@ namespace Automation.FrameworkCore.WebUI.DriverContext
                     break;
             }
         }
-    }
+
+        public IWebElement FindElement(By by)
+        {
+            if(by == null)
+            {
+                _logging.Error("To find an element the By param should be provided");
+            }
+            try
+            {
+				return _webDriver.FindElement(by);
+			}
+            catch(NoSuchElementException ex)
+            {
+				_logging.Error($"Element not found: {by}" + ex);
+				throw;
+			}
+            catch(Exception ex)
+            {
+                _logging.Error($"Error occurs while trying to find the element {by}" + ex.Message);
+                throw;
+            }
+        }
+
+		public void Dispose()
+		{
+			if (_webDriver != null)
+			{
+				_logging.Information("Disposing WebDriver instance");
+				_webDriver.Quit();
+				_webDriver.Dispose();
+				_webDriver = null;
+			}
+		}
+	}
 }

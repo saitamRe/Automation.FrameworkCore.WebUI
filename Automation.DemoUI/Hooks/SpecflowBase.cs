@@ -5,12 +5,6 @@ using Automation.FrameworkCore.WebUI.Runner;
 using BoDi;
 using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace Automation.DemoUI.Hooks
@@ -38,6 +32,8 @@ namespace Automation.DemoUI.Hooks
             container.RegisterInstanceAs(serviceProvider.GetRequiredService<IGlobalProperties>());
             container.RegisterInstanceAs(serviceProvider.GetRequiredService<IChromeWebDriver>());
             container.RegisterInstanceAs(serviceProvider.GetRequiredService<IAtConfig>());
+            container.RegisterInstanceAs(serviceProvider.GetRequiredService<IAtWebElement>());
+            container.RegisterInstanceAs(serviceProvider.GetRequiredService<IDrivers>());
         }
 
         [BeforeScenario(Order = 1)]

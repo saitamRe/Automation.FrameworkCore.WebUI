@@ -9,17 +9,27 @@ namespace Automation.FrameworkCore.WebUI.WebElements
 {
     public class AtWebElement : IAtWebElement
     {
-        private readonly IWebDriver _driver;
+        private IWebDriver _driver;
         private By _by;
         private ILogging _logging;
 
-        public AtWebElement(IWebDriver driver, By by)
+        public AtWebElement()
         {
-            _driver = driver;
-            _by = by;
             _logging = SpecflowRunner._serviceProvider.GetRequiredService<ILogging>();
         }
 
+        public void Set(IWebDriver driver, By by)
+        {
+            if(driver == null || by == null)
+            {
+                throw new ArgumentNullException("Driver or By parameter cannot be null");
+            }
+            else
+            {
+                _by = by;
+				_driver = driver;
+            }
+        }
         public void Click()
         {
             try
@@ -49,5 +59,7 @@ namespace Automation.FrameworkCore.WebUI.WebElements
                 throw new AutomationException("Error while keys sending" + ex.Message);
             }
         }
-    }
+
+		
+	}
 }

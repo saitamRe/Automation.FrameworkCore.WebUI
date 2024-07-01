@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Automation.FrameworkCore.WebUI.Abstractions
 {
-    public interface IAtWebElement
-    {
-        void Click();
-        void SendKeys(string text);
-        void Set(IWebDriver driver, By by);
-
+	public interface IDrivers
+	{
+		IWebDriver GetWebDriver();
+		IWebElement FindElement(By by);
+		void Dispose();
 	}
 }
