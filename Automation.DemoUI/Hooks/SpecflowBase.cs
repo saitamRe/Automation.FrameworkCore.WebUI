@@ -1,6 +1,7 @@
 ﻿using Automation.DemoUI.WebAbstraction;
 using Automation.FrameworkCore.WebUI.Abstractions;
 using Automation.FrameworkCore.WebUI.DIConteiner;
+using Automation.FrameworkCore.WebUI.DriverContext;
 using Automation.FrameworkCore.WebUI.Runner;
 using BoDi;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,12 +13,11 @@ namespace Automation.DemoUI.Hooks
     [Binding]
     public class SpecflowBase
     {
-        public IChromeWebDriver _driver;
-        
+        public IDrivers _drivers;
 
-        public SpecflowBase(IChromeWebDriver iDriver)
+        public SpecflowBase(IDrivers drivers)
         {
-            _driver = iDriver;
+            _drivers = drivers;
             
         }
 
@@ -37,21 +37,16 @@ namespace Automation.DemoUI.Hooks
         }
 
         [BeforeScenario(Order = 1)]
-        public void BeforeScenario(IObjectContainer container)
+        public void BeforeScenario()
         {
-            IWebDriver driver = _driver.GetChromeWebDriver();
-            container.RegisterInstanceAs(driver);
+            
         }
 
         [AfterScenario]
         public void AfterScenario(IObjectContainer container)
         {
-            IWebDriver driver = container.Resolve<IWebDriver>();
-            if(driver != null)
-            {
-                driver.Quit();
-                driver.Dispose();
-            }
+            IDrivers driver = container.Resolve<IDrivers>();
+            driver?.Dispose();
         }
     }
 }

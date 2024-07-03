@@ -12,7 +12,7 @@ namespace Automation.DemoUI.Steps
         LoginPage _loginPage;
         IAtConfig _config;
         
-        public LoginSteps(IAtConfig atConfig, IWebDriver driver, ILogging logging)
+        public LoginSteps(IAtConfig atConfig, IDrivers driver, ILogging logging)
         {
             _loginPage = new LoginPage(atConfig, driver, logging);
             _config = atConfig;

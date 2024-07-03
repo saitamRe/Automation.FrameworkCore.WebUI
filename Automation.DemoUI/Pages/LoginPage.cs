@@ -12,7 +12,7 @@ namespace Automation.DemoUI.Pages
 {
     public class LoginPage
     {
-        private readonly IWebDriver _driver;
+        private readonly IDrivers _drivers;
         private readonly IAtConfig _config;
         private readonly ILogging _logger;
 
@@ -22,21 +22,20 @@ namespace Automation.DemoUI.Pages
         private static readonly By LoginButtonLocator = By.XPath("//input[@id='login-button']");
 
         // Elements
-        private IWebElement UserName => _driver.FindElement(UserNameLocator);
-        private IWebElement Password => _driver.FindElement(PasswordLocator);
-        private IWebElement LoginButton => _driver.FindElement(LoginButtonLocator);
-        public LoginPage(IAtConfig atConfig, IWebDriver driver, ILogging logging)
+        private IAtWebElement UserName => _drivers.FindElement(UserNameLocator);
+        private IAtWebElement Password => _drivers.FindElement(PasswordLocator);
+        private IAtWebElement LoginButton => _drivers.FindElement(LoginButtonLocator);
+        public LoginPage(IAtConfig atConfig, IDrivers idrivers, ILogging logging)
         {
             _logger = logging;
             _config = atConfig;
-            _driver = driver;
-            _driver.Manage().Window.Maximize();
+            _drivers = idrivers;
         }
 
         public void Login(string username, string password)
         {
             _logger.Information("Navigating to login page");
-            _driver.Navigate().GoToUrl(_config.GetConfiguration("url"));
+            _drivers.GoToUrl(_config.GetConfiguration("url"));
             UserName.SendKeys(username);
             Password.SendKeys(password);
             _logger.Information("Submitting the login form");

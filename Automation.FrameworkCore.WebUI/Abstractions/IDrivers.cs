@@ -10,7 +10,8 @@ namespace Automation.FrameworkCore.WebUI.Abstractions
 	public interface IDrivers
 	{
 		IWebDriver GetWebDriver();
-		IWebElement FindElement(By by);
-		void Dispose();
-	}
+		IAtWebElement FindElement(By by);
+        void Dispose();
+		void GoToUrl(string url);
+    }
 }
