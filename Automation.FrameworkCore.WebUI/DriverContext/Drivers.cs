@@ -1,5 +1,8 @@
 ﻿using Automation.FrameworkCore.WebUI.Abstractions;
+using Automation.FrameworkCore.WebUI.Runner;
+using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +12,13 @@ using System.Threading.Tasks;
 namespace Automation.FrameworkCore.WebUI.DriverContext
 {
     //It is just wrapper around webdriver. It will be more helpfull when we will need to add different browsers support
-    public class Drivers :IDrivers
+    public class Drivers : IDrivers
     {
-        IChromeWebDriver _iChromeDriver;
-        IWebDriver? _webDriver;
-        IGlobalProperties _globalProperties;
-        ILogging _logging;
+        private IChromeWebDriver _iChromeDriver;
+        private IWebDriver? _webDriver;
+        private IGlobalProperties _globalProperties;
+        private ILogging _logging;
+        private static readonly object _lock = new();
 
 
         public Drivers(IChromeWebDriver chromeWebDriver, IGlobalProperties globalProperties, ILogging logging)
@@ -26,20 +30,19 @@ namespace Automation.FrameworkCore.WebUI.DriverContext
 
         public IWebDriver GetWebDriver()
         {
-            if(_webDriver == null )
+            lock (_lock)
             {
-                GetNewWebDriver();
-                return _webDriver;
+                if (_webDriver == null)
+                {
+                    InitializeWebDriver();
+                }
             }
-            else
-            {
-                return _webDriver;
-            }
+            return _webDriver;
         }
 
-        private void GetNewWebDriver()
+        private void InitializeWebDriver()
         {
-            switch(_globalProperties.BrowserType.ToLower())
+            switch (_globalProperties.BrowserType.ToLower())
             {
                 case "chrome":
                     _webDriver = _iChromeDriver.GetChromeWebDriver();
@@ -49,39 +52,56 @@ namespace Automation.FrameworkCore.WebUI.DriverContext
                     _webDriver = _iChromeDriver.GetChromeWebDriver();
                     break;
             }
+            _webDriver.Manage().Window.Maximize();
         }
 
-        public IWebElement FindElement(By by)
+        public IAtWebElement FindElement(By by)
         {
-            if(by == null)
+            IAtWebElement atWebElement = SpecflowRunner._serviceProvider.GetRequiredService<IAtWebElement>();
+            if (by == null)
             {
                 _logging.Error("To find an element the By param should be provided");
             }
             try
             {
-				return _webDriver.FindElement(by);
-			}
-            catch(NoSuchElementException ex)
+                atWebElement.Set(GetWebDriver(), by);
+                _logging.Information("Element is found");
+                return atWebElement;
+            }
+            catch (NoSuchElementException ex)
             {
-				_logging.Error($"Element not found: {by}" + ex);
-				throw;
-			}
-            catch(Exception ex)
+                _logging.Error($"Element not found: {by}" + ex);
+                throw;
+            }
+            catch (Exception ex)
             {
                 _logging.Error($"Error occurs while trying to find the element {by}" + ex.Message);
                 throw;
             }
         }
 
-		public void Dispose()
-		{
-			if (_webDriver != null)
-			{
-				_logging.Information("Disposing WebDriver instance");
-				_webDriver.Quit();
-				_webDriver.Dispose();
-				_webDriver = null;
-			}
-		}
-	}
+        public void GoToUrl(string url)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                _logging.Error("Url param is required");
+                throw new ArgumentNullException("Url param is required");
+            }
+            else
+            {
+                GetWebDriver().Navigate().GoToUrl(url);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_webDriver != null)
+            {
+                _logging.Information("Disposing WebDriver instance");
+                _webDriver.Quit();
+                _webDriver.Dispose();
+                _webDriver = null;
+            }
+        }
+    }
 }
