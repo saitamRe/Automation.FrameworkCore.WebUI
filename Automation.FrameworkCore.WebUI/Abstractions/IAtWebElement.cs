@@ -15,7 +15,9 @@ namespace Automation.FrameworkCore.WebUI.Abstractions
         void ClearText(int timeOut = 3);
         string GetText(int timeOut = 3);
         string GetAttribute(string attributeName, int timeOut = 3);
-
+        void MouseHover(int timeOut = 3);
+        bool IsDisplayed(int timeOut = 3);
+        void DoubleClick(int timeOut = 3);
 
     }
 }

@@ -26,7 +26,14 @@ namespace Automation.DemoUI.Tests.Params
             }
         }
 
-        
+        public string GetExtentReport
+        {
+            get
+            {
+                return GetReport + "\\index.html";
+            }
+        }
+
 
         public string GetFrameworkSettingsJson
         {

@@ -21,5 +21,13 @@ namespace Automation.FrameworkCore.WebUI.Runner
             IGlobalProperties globalProperties = _serviceProvider.GetRequiredService<IGlobalProperties>();
             globalProperties.Configure();
         }
+
+        [BeforeFeature]
+        public static void BeforeFeature(FeatureContext context)
+        {
+           IExtentReport extentReport = _serviceProvider.GetRequiredService<IExtentReport>();
+            extentReport.CreateFeature(context.FeatureInfo.Title);
+            context["extentReport"] = extentReport;
+        }
     }
 }
