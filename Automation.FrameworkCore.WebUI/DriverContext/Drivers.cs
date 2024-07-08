@@ -103,5 +103,50 @@ namespace Automation.FrameworkCore.WebUI.DriverContext
                 _webDriver = null;
             }
         }
+
+        public string GetPageTitle()
+        {
+            return GetWebDriver().Title;
+        }
+
+        public void GetNewTab()
+        {
+            GetWebDriver().SwitchTo().NewWindow(WindowType.Tab);
+        }
+
+        public void CloseCurrentBrowser()
+        {
+            GetWebDriver().Close();
+        }
+
+        public void SwitchToWindowWithHandle(string handle)
+        {
+            GetWebDriver().SwitchTo().Window(handle);
+        }
+
+        public void SwitchToWindowWithTitle(string title)
+        {
+            if(string.IsNullOrEmpty(title))
+            {
+                _logging.Error("Parameter title cannot be null");
+                throw new ArgumentNullException("Parameter title cannot be null");
+            }
+
+            IList<string> tabs = new List<string>();
+
+            foreach(string tab in tabs)
+            {
+                if(tabs.Contains(title))
+                {
+                    GetWebDriver().SwitchTo().Window(title);
+                    break;
+                }
+            }
+        }
+
+        //SwitchToFrame()
+        //Maximize()
+        //ExecuteScript()
+        //ScrollTo()
     }
 }

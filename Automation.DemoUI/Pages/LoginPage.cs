@@ -1,16 +1,12 @@
 ﻿using Automation.DemoUI.WebAbstraction;
+using Automation.DemoUI.WebAbstractions.Pages;
 using Automation.FrameworkCore.WebUI.Abstractions;
-using Automation.FrameworkCore.WebUI.Runner;
-using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework.Internal;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using WebDriverManager.DriverConfigs.Impl;
 
 
 namespace Automation.DemoUI.Pages
 {
-    public class LoginPage
+    public class LoginPage : ILoginPage
     {
         private readonly IDrivers _drivers;
         private readonly IAtConfig _config;

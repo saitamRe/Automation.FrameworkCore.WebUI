@@ -1,5 +1,7 @@
 ﻿using Automation.DemoUI.Pages;
 using Automation.DemoUI.WebAbstraction;
+using Automation.DemoUI.WebAbstractions.ISteps;
+using Automation.DemoUI.WebAbstractions.Pages;
 using Automation.FrameworkCore.WebUI.Abstractions;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
@@ -7,14 +9,14 @@ using TechTalk.SpecFlow;
 namespace Automation.DemoUI.Steps
 {
     [Binding]
-    public class LoginSteps
+    public class LoginSteps : ILoginSteps
     {
-        LoginPage _loginPage;
+        ILoginPage _loginPage;
         IAtConfig _config;
         
-        public LoginSteps(IAtConfig atConfig, IDrivers driver, ILogging logging)
+        public LoginSteps(IAtConfig atConfig, IDrivers driver, ILogging logging, ILoginPage loginPage)
         {
-            _loginPage = new LoginPage(atConfig, driver, logging);
+            _loginPage = loginPage;
             _config = atConfig;
         }
 

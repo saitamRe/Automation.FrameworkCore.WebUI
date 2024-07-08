@@ -4,12 +4,13 @@ using Microsoft.Extensions.Configuration;
 using NUnit.Framework.Internal;
 
 
-namespace Automation.FrameworkCore.WebUI.Reports
+namespace Automation.FrameworkCore.WebUI.Params
 {
     public class GlobalProperties : IGlobalProperties
     {
         private readonly IDefaultVariables _defaultVariables;
         private readonly ILogging _logging;
+        private readonly IExtentFeatureReport _extentFeatureReport;
 
 
         public string BrowserType { get; set; }
@@ -22,10 +23,11 @@ namespace Automation.FrameworkCore.WebUI.Reports
         public string DownloadedLocation { get; set; }
 
 
-        public GlobalProperties(IDefaultVariables defaultVariables, ILogging logging)
+        public GlobalProperties(IDefaultVariables defaultVariables, ILogging logging, IExtentFeatureReport extentFeatureReport)
         {
             _defaultVariables = defaultVariables;
             _logging = logging;
+            _extentFeatureReport = extentFeatureReport;
         }
 
         public void Configure()
@@ -38,7 +40,7 @@ namespace Automation.FrameworkCore.WebUI.Reports
             catch (Exception e)
             {
                 _logging.Error("JSON config file doesn't exist" + e.Message);
-                System.Environment.Exit(0);
+                Environment.Exit(0);
             }
 
             BrowserType = string.IsNullOrEmpty(builder["BrowserType"]) ? BrowserType = "chrome" : builder["BrowserType"];
@@ -48,6 +50,7 @@ namespace Automation.FrameworkCore.WebUI.Reports
             LogLevel = builder["LogLevel"];
             DataSetLocation = string.IsNullOrEmpty(builder["DataSetLocation"]) ? _defaultVariables.DataSetLocation : builder["DataSetLocation"];
             DownloadedLocation = string.IsNullOrEmpty(builder["DataSetLocation"]) ? _defaultVariables.DataSetLocation : builder["DownloadedLocation"];//probably here is a mistake
+            _extentFeatureReport.InitializeExtentReport();
 
             _logging.LogLevel(LogLevel);
 
