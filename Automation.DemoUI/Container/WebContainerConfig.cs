@@ -24,6 +24,7 @@ namespace Automation.DemoUI.Container
             container.RegisterTypeAs<AtConfig, IAtConfig>();
             container.RegisterTypeAs<LoginPage, ILoginPage>();
             container.RegisterTypeAs<LoginSteps, ILoginSteps>();
+            container.RegisterTypeAs<ProductPage, IProductPage>();
             //container = CoreContainerConfig.SetWebContainer(container);
         }
     }

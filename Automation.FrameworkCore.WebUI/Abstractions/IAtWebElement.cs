@@ -18,6 +18,7 @@ namespace Automation.FrameworkCore.WebUI.Abstractions
         void MouseHover(int timeOut = 3);
         bool IsDisplayed(int timeOut = 3);
         void DoubleClick(int timeOut = 3);
+        int NumberOfElement { get; }
 
     }
 }
