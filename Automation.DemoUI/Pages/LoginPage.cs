@@ -13,9 +13,9 @@ namespace Automation.DemoUI.Pages
         private readonly ILogging _logger;
 
         // Element locators
-        private static readonly By UserNameLocator = By.XPath("//input[@id='user-name']");
-        private static readonly By PasswordLocator = By.XPath("//input[@id='password']");
-        private static readonly By LoginButtonLocator = By.XPath("//input[@id='login-button']");
+        private readonly By UserNameLocator = By.XPath("//input[@id='user-name']");
+        private readonly By PasswordLocator = By.XPath("//input[@id='password']");
+        private readonly By LoginButtonLocator = By.XPath("//input[@id='login-button']");
 
         // Elements
         private IAtWebElement UserName => _drivers.FindElement(UserNameLocator);

@@ -24,6 +24,8 @@ namespace Automation.FrameworkCore.WebUI.WebElements
 
         }
 
+        int IAtWebElement.NumberOfElement => _driver.FindElements(_by).Count();
+
         public void Set(IWebDriver driver, By by)
         {
             if (driver == null || by == null)
