@@ -1,4 +1,5 @@
 ﻿using Automation.DemoUI.WebAbstraction;
+using Automation.DemoUI.WebAbstractions.Pages;
 using Automation.FrameworkCore.WebUI.Abstractions;
 using Automation.FrameworkCore.WebUI.DIConteiner;
 using Automation.FrameworkCore.WebUI.DriverContext;
@@ -14,9 +15,14 @@ namespace Automation.DemoUI.Hooks
     [Binding]
     public class SpecflowBase
     {
-        
+        ILoginPage _loginPage;
+        IAtConfig _config;
 
-        public SpecflowBase() { }
+        public SpecflowBase(ILoginPage loginPage, IAtConfig atConfig)
+        {
+            _loginPage = loginPage;
+            _config = atConfig;
+        }
         
         [BeforeTestRun(Order = 2)]
         //order = 1 because we need to have assiciation between classes and interfaces before a test run
@@ -62,6 +68,12 @@ namespace Automation.DemoUI.Hooks
             extentFeatureReport.FlushReport();
             IDrivers driver = container.Resolve<IDrivers>();
             driver?.Dispose();
+        }
+
+        [BeforeScenario("@LoginToApp")]
+        public void LoginAsUser()
+        {
+            _loginPage.Login(_config.GetConfiguration("username"), _config.GetConfiguration("password"));
         }
     }
 }

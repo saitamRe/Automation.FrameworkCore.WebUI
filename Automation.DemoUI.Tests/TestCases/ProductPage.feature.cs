@@ -75,9 +75,11 @@ namespace Automation.DemoUI.Tests.TestCases
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Verify different products prices and titles")]
+        [NUnit.Framework.CategoryAttribute("LoginToApp")]
         public virtual void VerifyDifferentProductsPricesAndTitles()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "LoginToApp"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify different products prices and titles", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 7
@@ -100,9 +102,6 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
- testRunner.Given("Login with valid credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "Item",
                             "Price"});
@@ -124,8 +123,75 @@ this.ScenarioInitialize(scenarioInfo);
                 table1.AddRow(new string[] {
                             "Test.allTheThings() T-Shirt (Red)",
                             "$15.99"});
-#line 9
+#line 8
  testRunner.Then("User verifies all the products", ((string)(null)), table1, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Verify Cart count")]
+        [NUnit.Framework.CategoryAttribute("LoginToApp")]
+        public virtual void VerifyCartCount()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "LoginToApp"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Cart count", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 19
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Items"});
+                table2.AddRow(new string[] {
+                            "Sauce Labs Backpack"});
+                table2.AddRow(new string[] {
+                            "Sauce Labs Fleece Jacket"});
+#line 20
+ testRunner.When("User cart items from product list to cart", ((string)(null)), table2, "When ");
+#line hidden
+#line 24
+ testRunner.Then("User checks count in cart of selected items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Items"});
+                table3.AddRow(new string[] {
+                            "Sauce Labs Backpack"});
+                table3.AddRow(new string[] {
+                            "Sauce Labs Fleece Jacket"});
+#line 25
+ testRunner.When("User uncart items from product list", ((string)(null)), table3, "When ");
+#line hidden
+#line 29
+ testRunner.Then("user verifies no item in cart", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Items"});
+                table4.AddRow(new string[] {
+                            "Sauce Labs Backpack"});
+#line 30
+ testRunner.When("User cart items from product list to cart", ((string)(null)), table4, "When ");
+#line hidden
+#line 33
+ testRunner.Then("User checks count in cart of selected items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
